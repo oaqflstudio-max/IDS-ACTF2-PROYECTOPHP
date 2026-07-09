@@ -1,0 +1,46 @@
+<?php
+// 1. Interfaz: Define un contrato de comportamiento
+interface Calculable {
+    public function obtenerPrecioFinal();
+}
+
+// 2. Clase Abstracta: La base que no se puede instanciar
+abstract class Producto {
+    protected $nombre;
+    protected $precio;
+
+    public function __construct($nombre, $precio) {
+        $this->nombre = $nombre;
+        $this->precio = $precio;
+    }
+
+    // Método abstracto: Las hijas están obligadas a programarlo
+    abstract public function obtenerDetalles();
+}
+
+// 3. Subclases que aplican Polimorfismo
+class Electronico extends Producto implements Calculable {
+    public function obtenerDetalles() {
+        return "Producto Electrónico: {$this->nombre}";
+    }
+    public function obtenerPrecioFinal() {
+        return $this->precio * 1.16; // Aplica IVA
+    }
+}
+
+class Alimento extends Producto {
+    public function obtenerDetalles() {
+        return "Producto Alimento: {$this->nombre}";
+    }
+}
+
+// 4. Programa principal para probar el Polimorfismo
+$inventario = [
+    new Electronico("Laptop", 1000),
+    new Alimento("Manzana", 10)
+];
+
+foreach ($inventario as $producto) {
+    echo $producto->obtenerDetalles() . "<br>";
+}
+?>
