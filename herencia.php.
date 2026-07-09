@@ -1,0 +1,36 @@
+<?php
+// Clase Base (Padre)
+class Producto {
+    public $nombre;
+    public $precio;
+
+    public function __construct($nombre, $precio) {
+        $this->nombre = $nombre;
+        $this->precio = $precio;
+    }
+
+    public function obtenerDetalles() {
+        return "Producto: $this->nombre | Precio: $$this->precio";
+    }
+}
+
+// Clase Derivada (Hija)
+class ProductoElectronico extends Producto {
+    public $marca;
+
+    public function __construct($nombre, $precio, $marca) {
+        // Usamos parent para llamar al constructor de la clase padre
+        parent::__construct($nombre, $precio);
+        $this->marca = $marca;
+    }
+
+    // Sobrescribimos el método para añadir la marca
+    public function obtenerDetalles() {
+        return parent::obtenerDetalles() . " | Marca: $this->marca";
+    }
+}
+
+// Pruebas
+$laptop = new ProductoElectronico("Laptop Gamer", 15000, "HP");
+echo $laptop->obtenerDetalles();
+?>
